@@ -28,11 +28,11 @@ CREATE TABLE Usuarios (
   PRIMARY KEY (id)
 );
 
-INSERT INTO Souvenirs (nombre,descripcion,stock,precio) VALUES ('poronga1','descripcionPoronga1',10,100);
-INSERT INTO Souvenirs (nombre,descripcion,stock,precio) VALUES ('poronga2','descripcionPoronga2',10,200);
-INSERT INTO Souvenirs (nombre,descripcion,stock,precio) VALUES ('poronga3','descripcionPoronga3',10,300);
-INSERT INTO Souvenirs (nombre,descripcion,stock,precio) VALUES ('poronga4','descripcionPoronga4',10,400);
-INSERT INTO Souvenirs (nombre,descripcion,stock,precio) VALUES ('poronga5','descripcionPoronga5',10,500);
+INSERT INTO Souvenirs (nombre,descripcion,stock,precio) VALUES ('SOuvenir1','descripcion1',10,100);
+INSERT INTO Souvenirs (nombre,descripcion,stock,precio) VALUES ('SOuvenir2','descripcion2',10,200);
+INSERT INTO Souvenirs (nombre,descripcion,stock,precio) VALUES ('SOuvenir3','descripcion3',10,300);
+INSERT INTO Souvenirs (nombre,descripcion,stock,precio) VALUES ('SOuvenir4','descripcion4',10,400);
+INSERT INTO Souvenirs (nombre,descripcion,stock,precio) VALUES ('SOuvenir5','descripcion5',10,500);
 
 DELIMITER $$
 CREATE DEFINER=`root`@`%` PROCEDURE `CompraSouvenir`(idSouvenir int ,cantidad int,disponibles int)
