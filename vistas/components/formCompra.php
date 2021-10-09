@@ -24,13 +24,11 @@ $InvalidFeedback = 'No puede comprar mas articulos que los disponibles en stock'
       </div>
 
       <div class="form-group row d-flex justify-content-center">
-
         <?php if ($consulta->estado === 'Respondida' || $tipo === 'Alumno') : ?>
           <button type="submit" class="btn btn-primary m-3" style="display: none;"><?php echo $buttonText; ?></button>
         <?php else : ?>
           <button type="submit" class="btn btn-primary m-3"><?php echo $buttonText; ?></button>
         <?php endif; ?>
-
       </div>
     </form>
     <script>

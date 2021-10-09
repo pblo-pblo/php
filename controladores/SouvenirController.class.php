@@ -5,7 +5,7 @@ require '../utils/autoloader.php';
 
 class SouvenirController
 {
-    public static function ListarSouvenir()
+    public static function ListarSouvenir($exito=null)
     {
         $p = new SouvenirModelo();
         $souvenirs = array();
@@ -20,14 +20,19 @@ class SouvenirController
             );
             array_push($souvenirs, $souvenir);
         }
-        return generarHtml('listadoConsultas', ['consultas' => $souvenirs]);
+        if ($exito) {
+            return generarHtml('listadoSouvenir', ['consultas' => $souvenirs,'exito'=> true]);
+        }
+        else{
+            return generarHtml('listadoSouvenir', ['consultas' => $souvenirs,'exito'=> false]);
+        }
     }
 
     public static function ObtenerSouvenir($id)
     {
         $c = new SouvenirModelo();
         $c->GetSouvenir($id);
-        return generarHtml('modificarUsuario', ['exito' => true, 'souvenir' => $c]);
+        return generarHtml('modificarSouvenir', ['souvenir' => $c]);
     }
     public static function UpdateSouvenir($id, $nombre, $descripcion, $stock, $precio)
     {
@@ -39,10 +44,10 @@ class SouvenirController
             $consulta->stock = $stock;
             $consulta->precio = $precio;
             $consulta->Update();
-            self::ListarSouvenir();
+            self::ListarSouvenir(true,"Souvenir modificado correctamente");
         } catch (Exception $ex) {
             error_log($ex->getMessage());
-            return generarHtml('consulta', ['exito' => false]);
+            self::ListarSouvenir(false,"Error al modificar souvenir");
         }
     }
     public static function DeleteSovenir($id)
@@ -51,16 +56,15 @@ class SouvenirController
             $consulta = new SouvenirModelo();
             $consulta->id = $id;
             $consulta->delete();
-            self::ListarSouvenir();
+            self::ListarSouvenir(true,"Souvenir eliminado correctamente");
         } catch (Exception $ex) {
             error_log($ex->getMessage());
-            return generarHtml('consulta', ['exito' => false]);
+            self::ListarSouvenir(false,"Tenga en cuenta que no puede eliminar un producto con compras asociadas");
         }
     }
 
     public static function InsertSouvenir($nombre, $descripcion, $stock, $precio)
     {
-        var_dump($nombre, $descripcion, $stock, $precio);
         try {
             $consulta = new SouvenirModelo();
             $consulta->nombre = $nombre;
@@ -68,10 +72,10 @@ class SouvenirController
             $consulta->stock = $stock;
             $consulta->precio = $precio;
             $consulta->Insert();
-            self::ListarSouvenir();
+            self::ListarSouvenir(true,"Souvenir agregado correctamente");
         } catch (Exception $ex) {
             error_log($ex->getMessage());
-            return generarHtml('consulta', ['exito' => false]);
+            self::ListarSouvenir(false,"Error al agregar souvenir");
         }
     }
 
@@ -79,42 +83,16 @@ class SouvenirController
     {
         $c = new SouvenirModelo();
         $c->GetSouvenir($id);
-        return generarHtml('respuesta', ['exito' => true, 'souvenir' => $c]);
+        return generarHtml('compraSouvenir', ['souvenir' => $c]);
     }
 
-    public static function Comprar($id, $cantidadcomprar,$stock)
+    public static function Comprar($id, $cantidadcomprar, $stock)
     {
         $c = new CompraModelo();
-        $c->idSouvenir= $id;
+        $c->idSouvenir = $id;
         $c->cantidad = $cantidadcomprar;
         $c->Comprar($stock);
-        self::ListarSouvenir();
-        return generarHtml('respuesta', ['exito' => true, 'souvenir' => $c]);
+        self::ListarSouvenir(true,"Compra realizada correctamente");
+        // return generarHtml('respuesta', ['exito' => true, 'souvenir' => $c]);
     }
-
-    // public static function ObtenerMisConsultasRealizadas()
-    // {
-    //     $c = new ConsultaModelo();
-    //     $c -> usuarioEmisor = $_SESSION['ci'];
-    //     $consultas = array();
-    //     foreach ($c->ObtenerMisConsultasRealizadas() as $fila) {
-    //         $consulta = array(
-    //             "usuarioEmisor" => $fila->usuarioEmisor,
-    //             "usuarioReceptor" => $fila->usuarioReceptor,
-    //             "mensaje" => $fila->mensaje,
-    //             "asunto" => $fila->asunto,
-    //             "estado" => $fila->estado,
-    //             "fecha" => $fila->fecha,
-    //             "id" => $fila->id,
-    //         );
-    //         array_push($consultas, $consulta);
-    //     }
-    //     return generarHtml('listadoConsultasRealizadas', ['consultas' => $consultas]);
-    // }
-
-    // public static function ObtenerConsultaAlumno($id){
-    //     $c = new ConsultaModelo();
-    //     $c -> ObtenerConsultaById($id);
-    //     return generarHtml('respuestaAlumno',['consulta'=>$c]);
-    // }
 }

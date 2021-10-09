@@ -20,7 +20,13 @@ function esContenidoEstatico($url)
     }
     return false;
 }
-
+function NecesitaAutenticacion() {
+    if (AuthController::SeInicioSesion()) {
+        return;
+    } else {
+        header('Location: /login');
+    }
+}
 function cargarContenidoEstatico($archivo)
 {
 
@@ -51,49 +57,16 @@ if (esContenidoEstatico($request)) {
     switch (strtok($request, '?')) {
         case '/':
         case '':
-            return require "../vistas/home.php";
+            NecesitaAutenticacion();
+            SouvenirController::ListarSouvenir(['exito'=>true]);
             break;
-        case '/alta-alumno':
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') UsuarioController::AltaAlumno(
-                $_POST['id'],
-                $_POST['nombre'],
-                $_POST['apellido'],
-                $_POST['password'],
-                $_POST['grupo']
-            );
-            if ($_SERVER['REQUEST_METHOD'] === 'GET') UsuarioController::ObtenerGrupos(constant_Alumno_Title);
-            break;
-
-        case '/alta-docente':
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') UsuarioController::AltaDocente(
-                $_POST['ci'],
-                $_POST['nombre'],
-                $_POST['apellido'],
-                $_POST['password'],
-                $_POST['grupo'],
-                $_POST['materia'],
-                $_POST['avatar']
-            );
-            if ($_SERVER['REQUEST_METHOD'] === 'GET') UsuarioController::ObtenerGrupos(constant_Docente_Title);
-            break;
-
-        case '/modificar-usuario':
-            if ($_SERVER['REQUEST_METHOD'] === 'GET') UsuarioController::ObtenerUsuarioByCedula($_SESSION['ci']);
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') UsuarioController::ModificarUsuario(
-                $_POST['nickname'],
-                $_POST['foto'],
-                $_POST['avatar'],
-            );
-            break;
-
-        case '/lista-usuarios':
-            UsuarioController::ObtenerUsuarios();
-            break;
-
 
         case '/lista-souvenirs':
-            SouvenirController::ListarSouvenir();
+            NecesitaAutenticacion();
+            SouvenirController::ListarSouvenir(['exito'=>true]);
+            break;
         case '/edit-souvenirs':
+            NecesitaAutenticacion();
             if ($_SERVER['REQUEST_METHOD'] === 'GET')
                 SouvenirController::ObtenerSouvenir($_GET['id']);
             if ($_SERVER['REQUEST_METHOD'] === 'POST')
@@ -106,10 +79,13 @@ if (esContenidoEstatico($request)) {
                 );
             break;
         case '/delete-souvenirs':
+            NecesitaAutenticacion();
             SouvenirController::DeleteSovenir($_GET['id']);
+            break;
         case '/insert-souvenirs':
+            NecesitaAutenticacion();
             if ($_SERVER['REQUEST_METHOD'] === 'GET')
-                return generarHtml('altaAlumno', ['exito' => true]);
+                return generarHtml('altaSouvenir', []);
             if ($_SERVER['REQUEST_METHOD'] === 'POST')
                 SouvenirController::InsertSouvenir(
                     $_POST['nombre'],
@@ -117,10 +93,12 @@ if (esContenidoEstatico($request)) {
                     $_POST['stock'],
                     $_POST['precio']
                 );
+            break;
         case '/compra':
+            NecesitaAutenticacion();
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 SouvenirController::ObtenerSouvenirParaComprar($_GET['id']);
-                return generarHtml('respuesta', ['exito' => true]);
+                break;
             }
             if ($_SERVER['REQUEST_METHOD'] === 'POST')
                 SouvenirController::Comprar(
@@ -128,34 +106,7 @@ if (esContenidoEstatico($request)) {
                     $_POST['cantidadcomprar'],
                     $_POST['stock'],
                 );
-
-
-        case '/principal':
-            UsuarioController::MostrarMenuPrincipal();
             break;
-        case '/consultar':
-            ConsultasController::ObtenerFormularioConsultas();
-            break;
-
-        case '/generarConsulta':
-            ConsultasController::GuardarConsulta($_POST['docente'], $_POST['asunto'], $_POST['message']);
-            break;
-        case '/listar-consultas-recibidas':
-            ConsultasController::ObtenerMisConsultas();
-            break;
-        case '/listar-consultas-realizadas':
-            ConsultasController::ObtenerMisConsultasRealizadas();
-            break;
-        case '/obtenerConsulta':
-            ConsultasController::ObtenerConsulta($_GET['id']);
-            break;
-        case '/obtenerConsultaAlumno':
-            ConsultasController::ObtenerConsultaAlumno($_GET['id']);
-            break;
-        case '/responderConsulta':
-            ConsultasController::UpdateConsulta($_POST['id'], $_POST['respuesta']);
-            break;
-
         case '/login':
             if ($_SERVER['REQUEST_METHOD'] === 'GET') AuthController::MostrarLogin();
             if ($_SERVER['REQUEST_METHOD'] === 'POST') AuthController::IniciarSesion($_POST['ci'], $_POST['password']);

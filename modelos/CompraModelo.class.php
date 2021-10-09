@@ -13,7 +13,6 @@ class CompraModelo extends Modelo
     public function Comprar($stock)
     {
         $disponibles = $stock - $this->cantidad;  
-        var_dump($disponibles);
         $sql = "CALL CompraSouvenir(?,?,?)";
         $this->sentencia = $this->conexion->prepare($sql);
         $this->sentencia->bind_param(

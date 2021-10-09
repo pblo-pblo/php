@@ -31,7 +31,7 @@ class AuthController
                 $u->Autenticar();
             }
             self::crearSesion($u);
-            header("Location: /principal");
+            SouvenirController::ListarSouvenir(['exito' => true]);
         } catch (Exception $e) {
             error_log("Fallo login del usuario " . $ci);
             generarHtml("login", ['exito' => false]);
@@ -42,11 +42,10 @@ class AuthController
         session_start();
         ob_start();
         $_SESSION['ci'] = $usuario->ci;
-        $_SESSION['TipoUsuario'] =$usuario->idRol;
-        $_SESSION['NombreCompleto'] = $usuario->nombre ." ". $usuario->apellido;
         $_SESSION['autenticado'] = true;
-        $_SESSION['avatar'] = $usuario->avatar;
-        $_SESSION['grupo'] = $usuario->idGrupo;
-        $_SESSION['nickName'] = $usuario->nickName;
+    }
+    public static function SeInicioSesion()
+    {
+        return isset($_SESSION['autenticado']);
     }
 }

@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 ?>
 <?php include "components/header.php" ?>
 
@@ -41,7 +42,7 @@ $titulo = 'Souvenir';
             $fechaAlta = $fila['fechaAlta'];
             $editar = "Editar";
             $borrar = "Borrar";
-            $comprar = $stock >0 ? "<td><a href='compra?id=$id' style='color:green' disabled>Comprar</a></td>": "<td><a href='#!' style='color:grey' disabled>Comprar</a></td>";
+            $comprar = $stock > 0 ? "<td><a href='compra?id=$id' style='color:green' disabled>Comprar</a></td>" : "<td><a href='#!' style='color:grey' disabled>Comprar</a></td>";
             echo "<tr>
             <th scope='row'>$id</th>
             <td>$nombre</td>
@@ -63,5 +64,16 @@ $titulo = 'Souvenir';
     </div>
   </div>
 </div>
+
+<?php if (isset($parametros['exito']) && $parametros['exito'] == true) : ?>
+  <script>
+    alertify.notify("Exito", 'success', 3);
+  </script>
+<?php endif; ?>
+<?php if (isset($parametros['exito']) && $parametros['exito'] == false) : ?>
+  <script>
+    alertify.notify('Tenga en cuenta que no puede eliminar un producto con una compra asociada', 'error', 3);
+  </script>
+<?php endif; ?>
 
 <?php include "components/footer.php" ?>

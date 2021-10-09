@@ -8,16 +8,16 @@
 $Titulo = 'Edit Souvenir';
 $action = '/edit-souvenirs';
 $usuario = $parametros['souvenir'];
-include "components/formModificarUsuario.php" ?>
+include "components/formModificarSouvenir.php" ?>
 
 <?php if (isset($parametros['exito']) && $parametros['exito'] == true) : ?>
     <script>
-        alertify.notify('Usuario Modificado Correctamente', 'success', 3);
+        alertify.notify('Souvenir modificdo Correctamente', 'success', 3);
     </script>
 <?php endif; ?>
 <?php if (isset($parametros['exito']) && $parametros['exito'] == false) : ?>
     <script>
-        alertify.notify('Error Modificar Usuario', 'error', 3);
+        alertify.notify('Souvenir modificdo Correctamente', 'error', 3);
     </script>
 <?php endif; ?>
 

@@ -1,18 +1,9 @@
-<?php
-session_start();
-?>
 <?php include "components/header.php" ?>
 
 <?php
-$title = 'La Franja';
-include "components/nav.php" ?>
-
-<?php
-$Titulo = 'Compra Souvenir';
-$souvenir = $parametros['souvenir'];
-$buttonText='Comprar';
-$action='/compra';
-include "components/formConsulta.php" ?>
+$Titulo = 'Alta Souvenir';
+$action = '/insert-souvenirs';
+include "components/formAltaSouvenir.php" ?>
 
 <?php if (isset($parametros['exito']) && $parametros['exito'] == true) : ?>
     <script>

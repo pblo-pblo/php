@@ -12,7 +12,8 @@
             <div class="form-group row">
                 <label for="id" class="col-sm-3 col-form-label">ID</label>
                 <div class="col-sm-9">
-                    <input type="number" class="form-control" name="id" id="id" placeholder="id" value="<?php echo $usuario->id; ?>">
+                    <input hidden type="number" class="form-control" name="id" id="id" placeholder="id" value="<?php echo $usuario->id; ?>">
+                    <label><?php echo $usuario->id; ?></label>
                     <div class="invalid-feedback">
                         <?php echo $CampoInvalidFeedback; ?>
                     </div>
@@ -57,6 +58,7 @@
             <div class="form-group row d-flex justify-content-center">
                 <button type="submit" class="btn btn-primary m-3"><?php echo $RegistrarCampo; ?></button>
             </div>
+            <a href="lista-souvenirs">volver</a>
         </form>
 
     </div>

@@ -51,13 +51,16 @@ class SouvenirModelo extends Modelo
     }
     public function Delete()
     {
-        $sql = "DELETE FROM Souvenirs  WHERE id = ? ";
+        $sql = "DELETE FROM Souvenirs  WHERE id = ?";
         $this->sentencia = $this->conexion->prepare($sql);
         $this->sentencia->bind_param(
             "i",
             $this->id
         );
         $this->sentencia->execute();
+        if ($this->conexion->error) {
+            throw new Exception("Error al obtener los Souvenirs: " . $this->conexion->error);
+        }
     }
 
     public function GetAllSouvenir()
