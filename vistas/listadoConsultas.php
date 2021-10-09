@@ -39,8 +39,8 @@ $titulo = 'Souvenir';
             $stock = $fila['stock'];
             $precio = $fila['precio'];
             $fechaAlta = $fila['fechaAlta'];
-            $editar = "Editar"; 
-            $borrar = "Borrar"; 
+            $editar = "Editar";
+            $borrar = "Borrar";
             echo "<tr>
             <th scope='row'>$id</th>
             <td>$nombre</td>
@@ -49,12 +49,16 @@ $titulo = 'Souvenir';
             <td>$$precio</td>
             <td>$fechaAlta</td>
             <td><a href='edit-souvenirs?id=$id'>$editar</a></td>
-            <td><a href='obtenerConsulta?id=$id' style='color:red'>$borrar</a></td>
+            <td><a href='delete-souvenirs?id=$id' style='color:red'>$borrar</a></td>
+            <td><a href='compra?id=$id' style='color:green'>Comprar</a></td>
           </tr>";
           }
           ?>
         </tbody>
       </table>
+      <div class="form-group row d-flex justify-content-center">
+        <a href='/insert-souvenirs' class="btn btn-primary m-3">Agregar Souvenir</a>
+      </div>
     </div>
   </div>
 </div>

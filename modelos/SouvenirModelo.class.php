@@ -24,10 +24,10 @@ class SouvenirModelo extends Modelo
 
     public function Insert()
     {
-        $sql = "INSERT INTO Souvenirs(nombre,descripcion,stock,precio) VALUES (?,?,?,?)";
+        $sql = "INSERT INTO Souvenirs (nombre,descripcion,stock,precio) VALUES (?,?,?,?)";
         $this->sentencia = $this->conexion->prepare($sql);
         $this->sentencia->bind_param(
-            "sssii",
+            "ssii",
             $this->nombre,
             $this->descripcion,
             $this->stock,
@@ -45,6 +45,16 @@ class SouvenirModelo extends Modelo
             $this->descripcion,
             $this->stock,
             $this->precio,
+            $this->id
+        );
+        $this->sentencia->execute();
+    }
+    public function Delete()
+    {
+        $sql = "DELETE FROM Souvenirs  WHERE id = ? ";
+        $this->sentencia = $this->conexion->prepare($sql);
+        $this->sentencia->bind_param(
+            "i",
             $this->id
         );
         $this->sentencia->execute();

@@ -1,10 +1,8 @@
 <?php include "components/header.php" ?>
 
 <?php
-$Titulo = 'Alta '. $parametros['tipo'];
-$action = '/alta-alumno';
-$grupos = $parametros['grupos'];
-$tipoUsuario = $parametros['tipo'];
+$Titulo = 'Alta Souvenir';
+$action = '/insert-souvenirs';
 include "components/formAltaUsuario.php" ?>
 
 <?php if (isset($parametros['exito']) && $parametros['exito'] == true) : ?>

@@ -89,6 +89,8 @@ if (esContenidoEstatico($request)) {
         case '/lista-usuarios':
             UsuarioController::ObtenerUsuarios();
             break;
+
+
         case '/lista-souvenirs':
             SouvenirController::ListarSouvenir();
         case '/edit-souvenirs':
@@ -103,6 +105,31 @@ if (esContenidoEstatico($request)) {
                     $_POST['precio'],
                 );
             break;
+        case '/delete-souvenirs':
+            SouvenirController::DeleteSovenir($_GET['id']);
+        case '/insert-souvenirs':
+            if ($_SERVER['REQUEST_METHOD'] === 'GET')
+                return generarHtml('altaAlumno', ['exito' => true]);
+            if ($_SERVER['REQUEST_METHOD'] === 'POST')
+                SouvenirController::InsertSouvenir(
+                    $_POST['nombre'],
+                    $_POST['descripcion'],
+                    $_POST['stock'],
+                    $_POST['precio']
+                );
+        case '/compra':
+            if ($_SERVER['REQUEST_METHOD'] === 'GET')
+                SouvenirController::ObtenerSouvenirParaComprar($_GET['id']);
+            return generarHtml('respuesta', ['exito' => true]);
+            if ($_SERVER['REQUEST_METHOD'] === 'POST')
+                SouvenirController::InsertSouvenir(
+                    $_POST['nombre'],
+                    $_POST['descripcion'],
+                    $_POST['stock'],
+                    $_POST['precio']
+                );
+
+
         case '/principal':
             UsuarioController::MostrarMenuPrincipal();
             break;

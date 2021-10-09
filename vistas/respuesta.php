@@ -8,12 +8,10 @@ $title = 'La Franja';
 include "components/nav.php" ?>
 
 <?php
-$Titulo = 'Formulario Respuesta';
-$respuesta = true;
-$consulta = $parametros['consulta'];
-$camposDisabled ='disabled';
-$buttonText='Enviar Respuesta';
-$action='/responderConsulta';
+$Titulo = 'Compra Souvenir';
+$souvenir = $parametros['souvenir'];
+$buttonText='Comprar';
+$action='/compra';
 include "components/formConsulta.php" ?>
 
 <?php if (isset($parametros['exito']) && $parametros['exito'] == true) : ?>

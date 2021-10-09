@@ -45,41 +45,43 @@ class SouvenirController
             return generarHtml('consulta', ['exito' => false]);
         }
     }
-    // public static function GuardarConsulta ($idDocente,$asunto,$mensaje){
-    //     try {
-    //         $consulta = new ConsultaModelo();
-    //         $consulta->usuarioEmisor = $_SESSION['ci'];
-    //         $consulta->usuarioReceptor = $idDocente;
-    //         $consulta->mensaje = $mensaje;
-    //         $consulta->asunto = $asunto;
-    //         $consulta->estado = 'Realizada';
-    //         $consulta->Insert();
-    //         self::ObtenerFormularioConsultas();
-    //     } catch (Exception $ex) {
-    //         error_log($ex->getMessage());
-    //         return generarHtml('consulta', ['exito' => false]);
-    //     }
-    // }
+    public static function DeleteSovenir($id)
+    {
+        try {
+            $consulta = new SouvenirModelo();
+            $consulta->id = $id;
+            $consulta->delete();
+            self::ListarSouvenir();
+        } catch (Exception $ex) {
+            error_log($ex->getMessage());
+            return generarHtml('consulta', ['exito' => false]);
+        }
+    }
 
-    // public static function ObtenerMisConsultas()
-    // {
-    //     $c = new ConsultaModelo();
-    //     $c -> usuarioReceptor = $_SESSION['ci'];
-    //     $consultas = array();
-    //     foreach ($c->ObtenerMisConsultas() as $fila) {
-    //         $consulta = array(
-    //             "usuarioEmisor" => $fila->usuarioEmisor,
-    //             "usuarioReceptor" => $fila->usuarioReceptor,
-    //             "mensaje" => $fila->mensaje,
-    //             "estado" => $fila->estado,
-    //             "asunto" => $fila->asunto,
-    //             "fecha" => $fila->fecha,
-    //             "id" => $fila->id,
-    //         );
-    //         array_push($consultas, $consulta);
-    //     }
-    //     return generarHtml('listadoConsultas', ['consultas' => $consultas]);
-    // }
+    public static function InsertSouvenir($nombre, $descripcion, $stock, $precio)
+    {
+        var_dump($nombre, $descripcion, $stock, $precio);
+        try {
+            $consulta = new SouvenirModelo();
+            $consulta->nombre = $nombre;
+            $consulta->descripcion = $descripcion;
+            $consulta->stock = $stock;
+            $consulta->precio = $precio;
+            $consulta->Insert();
+            self::ListarSouvenir();
+        } catch (Exception $ex) {
+            error_log($ex->getMessage());
+            return generarHtml('consulta', ['exito' => false]);
+        }
+    }
+
+    public static function ObtenerSouvenirParaComprar($id)
+    {
+        $c = new SouvenirModelo();
+        $c->GetSouvenir($id);
+        return generarHtml('respuesta', ['exito' => true, 'souvenir' => $c]);
+    }
+
     // public static function ObtenerMisConsultasRealizadas()
     // {
     //     $c = new ConsultaModelo();
