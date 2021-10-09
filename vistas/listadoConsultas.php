@@ -48,7 +48,7 @@ $titulo = 'Souvenir';
             <td>$stock</td>
             <td>$$precio</td>
             <td>$fechaAlta</td>
-            <td><a href='obtenerConsulta?id=$id'>$editar</a></td>
+            <td><a href='edit-souvenirs?id=$id'>$editar</a></td>
             <td><a href='obtenerConsulta?id=$id' style='color:red'>$borrar</a></td>
           </tr>";
           }

@@ -55,7 +55,7 @@ if (esContenidoEstatico($request)) {
             break;
         case '/alta-alumno':
             if ($_SERVER['REQUEST_METHOD'] === 'POST') UsuarioController::AltaAlumno(
-                $_POST['ci'],
+                $_POST['id'],
                 $_POST['nombre'],
                 $_POST['apellido'],
                 $_POST['password'],
@@ -91,7 +91,18 @@ if (esContenidoEstatico($request)) {
             break;
         case '/lista-souvenirs':
             SouvenirController::ListarSouvenir();
-                break;
+        case '/edit-souvenirs':
+            if ($_SERVER['REQUEST_METHOD'] === 'GET')
+                SouvenirController::ObtenerSouvenir($_GET['id']);
+            if ($_SERVER['REQUEST_METHOD'] === 'POST')
+                SouvenirController::UpdateSouvenir(
+                    $_POST['id'],
+                    $_POST['nombre'],
+                    $_POST['descripcion'],
+                    $_POST['stock'],
+                    $_POST['precio'],
+                );
+            break;
         case '/principal':
             UsuarioController::MostrarMenuPrincipal();
             break;

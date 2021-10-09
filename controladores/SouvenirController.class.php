@@ -23,6 +23,28 @@ class SouvenirController
         return generarHtml('listadoConsultas', ['consultas' => $souvenirs]);
     }
 
+    public static function ObtenerSouvenir($id)
+    {
+        $c = new SouvenirModelo();
+        $c->GetSouvenir($id);
+        return generarHtml('modificarUsuario', ['exito' => true, 'souvenir' => $c]);
+    }
+    public static function UpdateSouvenir($id, $nombre, $descripcion, $stock, $precio)
+    {
+        try {
+            $consulta = new SouvenirModelo();
+            $consulta->id = $id;
+            $consulta->nombre = $nombre;
+            $consulta->descripcion = $descripcion;
+            $consulta->stock = $stock;
+            $consulta->precio = $precio;
+            $consulta->Update();
+            self::ListarSouvenir();
+        } catch (Exception $ex) {
+            error_log($ex->getMessage());
+            return generarHtml('consulta', ['exito' => false]);
+        }
+    }
     // public static function GuardarConsulta ($idDocente,$asunto,$mensaje){
     //     try {
     //         $consulta = new ConsultaModelo();
@@ -33,20 +55,6 @@ class SouvenirController
     //         $consulta->estado = 'Realizada';
     //         $consulta->Insert();
     //         self::ObtenerFormularioConsultas();
-    //     } catch (Exception $ex) {
-    //         error_log($ex->getMessage());
-    //         return generarHtml('consulta', ['exito' => false]);
-    //     }
-    // }
-    // public static function UpdateConsulta ($id,$respuesta){
-
-    //     try {
-    //         $consulta = new ConsultaModelo();
-    //         $consulta->id = $id;
-    //         $consulta->respuesta = $respuesta;
-    //         $consulta->estado = 'Respondida';
-    //         $consulta->Update();
-    //         self::ObtenerMisConsultas();
     //     } catch (Exception $ex) {
     //         error_log($ex->getMessage());
     //         return generarHtml('consulta', ['exito' => false]);
@@ -92,11 +100,6 @@ class SouvenirController
     //     return generarHtml('listadoConsultasRealizadas', ['consultas' => $consultas]);
     // }
 
-    // public static function ObtenerConsulta($id){
-    //     $c = new ConsultaModelo();
-    //     $c -> ObtenerConsultaById($id);
-    //     return generarHtml('respuesta',['consulta'=>$c]);
-    // }
     // public static function ObtenerConsultaAlumno($id){
     //     $c = new ConsultaModelo();
     //     $c -> ObtenerConsultaById($id);

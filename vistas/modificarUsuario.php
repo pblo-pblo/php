@@ -5,10 +5,9 @@
 
 
 <?php
-$Titulo = 'Mi Perfil';
-$action = '/modificar-usuario';
-$grupos = $parametros['grupos'];
-$usuario = $parametros['usuario'];
+$Titulo = 'Edit Souvenir';
+$action = '/edit-souvenirs';
+$usuario = $parametros['souvenir'];
 include "components/formModificarUsuario.php" ?>
 
 <?php if (isset($parametros['exito']) && $parametros['exito'] == true) : ?>
