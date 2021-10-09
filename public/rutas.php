@@ -118,15 +118,15 @@ if (esContenidoEstatico($request)) {
                     $_POST['precio']
                 );
         case '/compra':
-            if ($_SERVER['REQUEST_METHOD'] === 'GET')
+            if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 SouvenirController::ObtenerSouvenirParaComprar($_GET['id']);
-            return generarHtml('respuesta', ['exito' => true]);
+                return generarHtml('respuesta', ['exito' => true]);
+            }
             if ($_SERVER['REQUEST_METHOD'] === 'POST')
-                SouvenirController::InsertSouvenir(
-                    $_POST['nombre'],
-                    $_POST['descripcion'],
+                SouvenirController::Comprar(
+                    $_POST['id'],
+                    $_POST['cantidadcomprar'],
                     $_POST['stock'],
-                    $_POST['precio']
                 );
 
 

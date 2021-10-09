@@ -41,6 +41,7 @@ $titulo = 'Souvenir';
             $fechaAlta = $fila['fechaAlta'];
             $editar = "Editar";
             $borrar = "Borrar";
+            $comprar = $stock >0 ? "<td><a href='compra?id=$id' style='color:green' disabled>Comprar</a></td>": "<td><a href='#!' style='color:grey' disabled>Comprar</a></td>";
             echo "<tr>
             <th scope='row'>$id</th>
             <td>$nombre</td>
@@ -50,7 +51,7 @@ $titulo = 'Souvenir';
             <td>$fechaAlta</td>
             <td><a href='edit-souvenirs?id=$id'>$editar</a></td>
             <td><a href='delete-souvenirs?id=$id' style='color:red'>$borrar</a></td>
-            <td><a href='compra?id=$id' style='color:green'>Comprar</a></td>
+            $comprar
           </tr>";
           }
           ?>

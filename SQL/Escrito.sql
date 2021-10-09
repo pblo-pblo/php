@@ -33,3 +33,13 @@ INSERT INTO Souvenirs (nombre,descripcion,stock,precio) VALUES ('poronga2','desc
 INSERT INTO Souvenirs (nombre,descripcion,stock,precio) VALUES ('poronga3','descripcionPoronga3',10,300);
 INSERT INTO Souvenirs (nombre,descripcion,stock,precio) VALUES ('poronga4','descripcionPoronga4',10,400);
 INSERT INTO Souvenirs (nombre,descripcion,stock,precio) VALUES ('poronga5','descripcionPoronga5',10,500);
+
+DELIMITER $$
+CREATE DEFINER=`root`@`%` PROCEDURE `CompraSouvenir`(idSouvenir int ,cantidad int,disponibles int)
+BEGIN
+START TRANSACTION;
+INSERT INTO Compras (idSouvenir,cantidad) VALUES (idSouvenir,cantidad);
+UPDATE Souvenirs set stock = disponibles where id=idSouvenir;
+COMMIT;
+END$$
+DELIMITER ;

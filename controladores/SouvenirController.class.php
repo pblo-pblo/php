@@ -82,6 +82,16 @@ class SouvenirController
         return generarHtml('respuesta', ['exito' => true, 'souvenir' => $c]);
     }
 
+    public static function Comprar($id, $cantidadcomprar,$stock)
+    {
+        $c = new CompraModelo();
+        $c->idSouvenir= $id;
+        $c->cantidad = $cantidadcomprar;
+        $c->Comprar($stock);
+        self::ListarSouvenir();
+        return generarHtml('respuesta', ['exito' => true, 'souvenir' => $c]);
+    }
+
     // public static function ObtenerMisConsultasRealizadas()
     // {
     //     $c = new ConsultaModelo();

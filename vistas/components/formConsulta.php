@@ -9,11 +9,11 @@ $InvalidFeedback = 'No puede comprar mas articulos que los disponibles en stock'
 
       <div class="form-group">
         <label for="exampleFormControlInput1">ID</label>
-        <input type="number" class="form-control" name="id" id="id" placeholder="ID" value="<?php echo $souvenir->id; ?>">
+        <input type="number" class="form-control" name="id" id="id" placeholder="id" value="<?php echo $souvenir->id; ?>">
       </div>
       <div class="form-group">
         <label for="exampleFormControlInput1">Stock</label>
-        <input type="number" class="form-control" name="stock" id="stock" placeholder="Stock" value="<?php echo $souvenir->stock; ?>">
+        <input type="number" class="form-control" name="stock" id="stock" placeholder="stock" value="<?php echo $souvenir->stock; ?>">
       </div>
       <div class="form-group">
         <label for="exampleFormControlInput1">Cantidad a comprar</label>
